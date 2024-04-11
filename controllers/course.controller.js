@@ -1,11 +1,18 @@
 const { Course } = require("../models/course");
+const { School } = require("../models/school")
 
 const createCourse = async (req, res) => {
   try {
     const { schoolId } = req.params;
     const { name } = req.body;
     console.log("School ID:", req.params.schoolId);
-    const course = new Course({ name, school: schoolId });
+    console.log(School)
+    const school = await School.findById(schoolId);
+    if (!school) {
+      return res.status(404).json({ message: "School not found" });
+    }
+
+    const course = new Course({ name, school: school._id });
     await course.save();
     res.status(201).json(course);
   } catch (error) {
