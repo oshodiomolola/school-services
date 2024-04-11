@@ -50,7 +50,7 @@ const viewCourse = async (req, res, next) => {
 const deleteCourse = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const deletedCourse = await User.findByIdAndDelete(courseId);
+    const deletedCourse = await Course.findByIdAndDelete(courseId);
     return res
       .status(200)
       .json({ message: "Course has been deleted successfully", deletedCourse });
