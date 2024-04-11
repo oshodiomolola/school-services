@@ -49,7 +49,7 @@ const viewCourse = async (req, res, next) => {
 
 const deleteCourse = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { courseId } = req.params;
     const deletedCourse = await Course.findByIdAndDelete(courseId);
     return res
       .status(200)
