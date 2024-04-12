@@ -1,20 +1,19 @@
 const { School } = require("../models/school");
 
-const createSchool = async (req, res, next) => {
+const createSchool = async (req, res) => {
   try {
     const schoolData = req.body;
     const newSchool = await School.create(schoolData);
     return res
       .status(200)
       .json({ message: "School created successfully", school: newSchool });
-    next();
   } catch (err) {
     console.log("Error creating school:", err);
     res.status(500).json({ error: "Failed to create school" });
   }
 };
 
-const updateSchool = async (req, res, next) => {
+const updateSchool = async (req, res) => {
   try {
     const { schoolId } = req.params;
     const updateData = req.body;
@@ -31,7 +30,7 @@ const updateSchool = async (req, res, next) => {
 };
 
 
-const viewSchool = async (req, res, next) => {
+const viewSchool = async (req, res) => {
   try {
     const { id } = req.params;
     const school = await School.findById(id);
@@ -41,7 +40,7 @@ const viewSchool = async (req, res, next) => {
   }
 };
 
-const viewSchools = async (req, res, next) => {
+const viewSchools = async (req, res) => {
   try {
     let filter = {};
     if (req.params.schoolId) {
@@ -54,7 +53,6 @@ const viewSchools = async (req, res, next) => {
       size: allSchools.length,
       allSchools,
     });
-    next();
   } catch (err) {
     console.log("Error viewing schools:", err);
     res.status(500).json({ error: "Failed to get schools" });

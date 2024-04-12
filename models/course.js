@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
   name: { type: String, required: true },
-  school: { type: Schema.Types.ObjectId, ref: "School", required: true }
+  schoolId: { type: Schema.Types.ObjectId, ref: "School", unique: false }
 });
 
 const Course = mongoose.model("Course", CourseSchema);
 
-module.exports = Course;
+module.exports = { Course };

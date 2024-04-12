@@ -5,16 +5,19 @@ const createCourse = async (req, res) => {
   try {
     const { schoolId } = req.params;
     const { name } = req.body;
+    const data = {name, schoolId}
     console.log("School ID:", req.params.schoolId);
-    console.log(School)
+    
     const school = await School.findById(schoolId);
+    console.log(school)
     if (!school) {
       return res.status(404).json({ message: "School not found" });
     }
 
-    const course = new Course({ name, school: school._id });
-    await course.save();
-    res.status(201).json(course);
+    const course = await Course.create(data);
+    // await course.save();
+    res.status(201).json({ response: "Successful", message: "Course created successfully", data});
+    
   } catch (error) {
     res.status(400).json({ message: "Internal server error" });
   }
