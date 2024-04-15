@@ -1,3 +1,4 @@
+const { Types } = require("mongoose");
 const { Course } = require("../models/course");
 const { School } = require("../models/school")
 
@@ -9,7 +10,7 @@ const createCourse = async (req, res) => {
     console.log("School ID:", req.params.schoolId);
     
     const school = await School.findById(schoolId);
-    console.log(school)
+    console.log(school, "hello")
     if (!school) {
       return res.status(404).json({ message: "School not found" });
     }
@@ -27,9 +28,12 @@ const updateCourse = async (req, res, next) => {
   try {
     const { courseId } = req.params;
     const updateData = req.body;
+    console.log(courseId);
+  
     const updatedCourse = await Course.findByIdAndUpdate(courseId, updateData, {
       new: true,
     });
+   console.log(updatedCourse, "got here");
     return res
       .status(200)
       .json({
